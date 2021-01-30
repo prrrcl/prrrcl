@@ -1,8 +1,6 @@
 import { createContext, useEffect, useState, useRef, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import { TweenMax, CSSPlugin, Power3, TimelineMax } from 'gsap'
-
-const C = CSSPlugin
+import { TweenMax, Power3, TimelineMax } from 'gsap'
 
 const TIME_TRANSITION = 1
 
@@ -67,7 +65,7 @@ export default function LoadingContextProvider ({ children }) {
         delay: TIME_TRANSITION * 3.5,
         ease: Power3.easeOut
       },
-      0.05
+      0.02
     )
 
     TweenMax.to(
@@ -167,10 +165,11 @@ export default function LoadingContextProvider ({ children }) {
       loadingWrapper.current,
       TIME_TRANSITION,
       {
-        delay: TIME_TRANSITION * 3.9,
         onStart: () => router.push(url),
         top: 0
       }, {
+        duration: TIME_TRANSITION / 2,
+        delay: TIME_TRANSITION / 3,
         top: '100%',
         ease: Power3.easeOut,
         onComplete: () => {
@@ -183,7 +182,7 @@ export default function LoadingContextProvider ({ children }) {
 
   const navigatePromise = useMemo(() => new Promise((resolve, reject) => {
     // I manage this with a promises for the future API calls
-    setTimeout(resolve, TIME_TRANSITION * 3000)
+    setTimeout(resolve, TIME_TRANSITION * 4000)
   }))
 
   const navigate = (url) => {
