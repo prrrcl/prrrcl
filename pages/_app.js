@@ -6,7 +6,7 @@ function MyApp ({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Welcome to my portfolio</title>
+        <title>Welcome to my... site? - prrrcl&reg;</title>
         <link rel="icon" type="image/png" href="/favicon.png"></link>
       </Head>
       <LoadingContextProvider>
