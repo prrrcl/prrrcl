@@ -13,7 +13,7 @@ export default function LoadingContextProvider ({ children }) {
   const gradient = useRef(null)
   const logo = useRef(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [isTransitionating, setIsTransitionating] = useState(true)
+  const [loadAnimations, setLoadAnimations] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -72,18 +72,20 @@ export default function LoadingContextProvider ({ children }) {
       loadingWrapper.current,
       TIME_TRANSITION,
       {
+        onStart: () => setLoadAnimations(true),
         delay: TIME_TRANSITION * 3.7,
         ease: Power3.easeOut,
         top: '100%',
         onComplete: () => {
           setIsLoaded(true)
-          setIsTransitionating(false)
+          setLoadAnimations(false)
         }
       }
     )
   }, [])
 
   const animEnter = (url, e) => {
+    setIsLoaded(false)
     const tl = new TimelineMax({ repeat: -1, force3D: true })
     tl.set(gradient.current, { backgroundPositionX: '0' })
     e?.preventDefault()
@@ -147,6 +149,7 @@ export default function LoadingContextProvider ({ children }) {
     TweenMax.fromTo(
       gradient.current,
       {
+        onStart: () => setLoadAnimations(true),
         alpha: 1
       }, {
         duration: TIME_TRANSITION / 3,
@@ -174,6 +177,7 @@ export default function LoadingContextProvider ({ children }) {
         ease: Power3.easeOut,
         onComplete: () => {
           setIsLoaded(true)
+          setLoadAnimations(false)
         }
 
       }
@@ -191,10 +195,19 @@ export default function LoadingContextProvider ({ children }) {
     )
   }
 
+  useEffect(() => {
+    if (!isLoaded) {
+      document.querySelector('#__next').classList.add('loading')
+    } else {
+      document.querySelector('#__next').classList.remove('loading')
+    }
+  }, [isLoaded])
+
   return (
     <Provider
       value={{
-        navigate: animEnter
+        navigate: animEnter,
+        loadAnimations
       }}>
       <div className={`loading-wrapper ${isLoaded ? 'no-pointable' : ''}`} ref={loadingWrapper}>
 

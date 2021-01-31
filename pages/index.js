@@ -1,18 +1,20 @@
 import Salut from 'components/app/home/salut'
 import useAnimation from 'components/hooks/useAnimation'
+import useLoading from 'components/hooks/useLoading'
 
 const animation = {
   y: 265,
   ease: 'power4.out',
-  delay: 4.5,
   skewY: 12,
+  delay: 0.3,
   stagger: {
     amount: 0.4
   }
 }
 export default function Home () {
-  const { ref } = useAnimation({ onEnter: true, animation, duration: 1.8, childOfChilds: true })
-  const { ref: ref2 } = useAnimation({ onEnter: true, animation: { ...animation, delay: 6, alpha: 0 }, duration: 1.8, childOfChilds: true })
+  const { loadAnimations } = useLoading()
+  const { ref } = useAnimation({ onEnter: true, animation, duration: 1.8, childOfChilds: true, loadAnimations })
+  const { ref: ref2 } = useAnimation({ onEnter: true, animation: { ...animation, alpha: 0 }, duration: 1.8, childOfChilds: true, loadAnimations })
   return (
     <>
     <main>
@@ -56,8 +58,8 @@ export default function Home () {
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 100vh;
       justify-content: center;
+      height: 100%;
     }
     .header-content {
       position: relative;
@@ -65,16 +67,18 @@ export default function Home () {
       display: flex;
       flex-direction: column;
       align-items: center;
+      height: 100%;
+      justify-content: center;
     }
     h1 {
-      margin: 0;
+      margin: 80px 0 30px;
       font-size: 15em;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       width: 360px;
-      height: 530px;
+      height: 380px;
     }
     .line {
       position: relative;
