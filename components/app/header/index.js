@@ -7,44 +7,33 @@ const Burguer = styled.div`
   width: 45px;
   height: 45px;
   position:  relative;
-  span {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: black;
-    border-radius: 50%;
-    pointer-events: none;
-  }
-  .burguer {
-    cursor: pointer;
-    pointer-events: all;
-  }
 `
 const MenuWrapper = styled.nav`
-position: absolute;
-top: 50%;
-left: 50%;
-pointer-events: none;
-transform: translate(-50%, -50%);
-&.opened {
-  pointer-events: all;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin:0;
-  display: flex;
-  flex-direction: column;
-  li {
-    color: white;
-    opacity: 0;
-    margin-bottom: 45px;
-    font-size: 2em;
-    font-weight: bold;
-    text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  z-index: 20;
+  transform: translate(-50%, -50%);
+  &.opened {
+    pointer-events: all;
   }
-}
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    li {
+      color: white;
+      opacity: 0;
+      margin-bottom: 45px;
+      font-size: 2em;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
 `
 
 export default function Header () {
@@ -129,6 +118,7 @@ export default function Header () {
         <span ref={circle}/>
         <span className="burguer" ref={circleInverted} onClick={toggleMenu}/>
       </Burguer>
+    </header>
       <MenuWrapper className={menuOpened ? 'opened' : ''}>
         <ul ref={menuItems}>
           {menu.map(item => (
@@ -140,16 +130,29 @@ export default function Header () {
           ))}
         </ul>
       </MenuWrapper>
-    </header>
     <style jsx>{`
     header {
-      display: flex;
-      justify-content: flex-end;
       padding: 30px 30px 0 0;
+      z-index: 20;
+      position: fixed;
+      top: 0;
+      right: 0;
     }
     .opened {
       width: 100%;
       height: 100vh;
+    }
+    .burguer {
+      cursor: pointer;
+      pointer-events: all;
+    }
+    span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: black;
+      border-radius: 50%;
+      pointer-events: none;
     }
     `}</style>
     </>
