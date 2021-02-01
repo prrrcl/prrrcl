@@ -13,8 +13,9 @@ const animation = {
 }
 export default function Home () {
   const { loadAnimations } = useLoading()
-  const { ref } = useAnimation({ onEnter: true, animation, duration: 1.8, childOfChilds: true, loadAnimations })
-  const { ref: ref2 } = useAnimation({ onEnter: true, animation: { ...animation, alpha: 0 }, duration: 1.8, childOfChilds: true, loadAnimations })
+  const { ref } = useAnimation({ animation, duration: 1.8, childOfChilds: true, loadAnimations })
+  const { ref: ref2 } = useAnimation({ animation: { ...animation, alpha: 0 }, duration: 1.8, childOfChilds: true, loadAnimations })
+
   return (
     <>
     <main>
@@ -42,7 +43,7 @@ export default function Home () {
           </div>
           <div className="line paragraph">
             <span>
-            I am front end developer.
+            I am <b>front end</b> engineer.
             </span>
           </div>
           <div className="line paragraph">
