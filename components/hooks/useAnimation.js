@@ -1,7 +1,7 @@
 import gsap from 'gsap'
 import { useRef, useEffect } from 'react'
 
-const useAnimation = ({ onEnter, duration, animation, childOfChilds, loadAnimations }) => {
+const useAnimation = ({ onEnter = true, duration = 1, animation, childOfChilds = false, loadAnimations }) => {
   const ref = useRef()
   const { current: tl } = useRef(gsap.timeline({ paused: true }))
 
