@@ -5,31 +5,30 @@ export const WrapperCv = styled.section`
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: space-evenly;
 `
 export const Year = styled.article`
-  width: ${({ total }) => 100 / total}%;
-  height: 100%;
+  height: ${({ total }) => 100 / total}%;
+  width: 100%;
   position: relative;
   &:before{
     content: '';
-    width: 100%;
-    height: 4px;
+    height: 100%;
+    width: 4px;
     position: absolute;
-    top: 50%;
+    left: 50%;
     background: ${({ index }) => COLORS_ARRAY[index]};
-    transform: translateY(-50%);
+    transform: translateX(-50%);
   }
   &:not(:last-of-type):after {
     content: '';
-    height: 20px;
+    width: 20px;
     position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
     background: black;
-    width: 2px;
+    height: 2px;
   }
 
   .year {

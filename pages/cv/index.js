@@ -16,7 +16,7 @@ export default function CV () {
   return (
     <WrapperCv>
       <Works data={cv?.studies} date={sinceDate} total={diff.length} />
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
       {diff.map((y, i) => (
         <Year key={y} index={i} total={diff.length}>
           <div className="year">{format(y, 'y')}</div>
@@ -28,9 +28,9 @@ export default function CV () {
       <style jsx>{`
         .today {
           position:absolute;
-          left: ${getStart(sinceDate, new Date())}%;
-          width: ${100 - getStart(sinceDate, new Date())}%;
-          height: 100%;
+          top: ${getStart(sinceDate, new Date())}%;
+          height: ${100 - getStart(sinceDate, new Date())}%;
+          width: 100%;
           background: rgba(255,255,255,.8);
           filter: blur(10px)
         }

@@ -9,8 +9,12 @@ import { getStart } from './comps'
 const WorkWrapper = styled.div`
   background: ${({ data }) => data.color || COLORS_ARRAY[random(0, COLORS_ARRAY.length - 1)]};
   position: absolute;
-  left: ${({ data, from }) => getStart(from, data.startAt)}%;
-  width: ${({ data, from }) => getStart(from, data.endAt || new Date()) - getStart(from, data.startAt)}%;
+  left: ${({ index }) => index * 20}%;
+  height: ${({ data, from }) => getStart(from, data.endAt || new Date()) - getStart(from, data.startAt)}%;
+  @media (min-width: 768px){
+    width: 30%;
+  }
+  width: 100%;
   padding: 15px;
   top:${({ from, data }) => getStart(from, data.startAt)}%  ;
   border-radius: 10px;
@@ -22,7 +26,6 @@ const WorkWrapper = styled.div`
   
     h3{
      margin: 0; 
-     white-space: nowrap;
     }
 `
 
@@ -44,8 +47,8 @@ const Work = ({ data, from, total, index }) => {
         gsap.to(
           containerRef.current,
           {
-            height: 52,
-            width: `${getStart(from, data.endAt ?? new Date()) - getStart(from, data.startAt)}%`,
+            height: `${getStart(from, data.endAt ?? new Date()) - getStart(from, data.startAt)}%`,
+            // width: `${getStart(from, data.endAt ?? new Date()) - getStart(from, data.startAt)}%`,
             delay: 0.4,
             zIndex: 0
           }
@@ -65,8 +68,8 @@ const Work = ({ data, from, total, index }) => {
         gsap.to(
           containerRef.current,
           {
-            height: 50 * (data.description.length > 1 ? data.description.length : data.description.length + 1),
-            width: `${getStart(from, new Date('12-31-2021')) - getStart(from, data.startAt)}%`,
+            height: 50 * (data.description.length > 2 ? data.description.length + 3 : data.description.length + 1),
+            // width: `${getStart(from, new Date('12-31-2021')) - getStart(from, data.startAt)}%`,
             zIndex: 999
           }
         )
@@ -115,7 +118,7 @@ export default function Works ({ data, date }) {
     .container {
       position: relative;
       margin: 30px 0;
-      height: 100%;
+      width: 100%;
     }
     `}</style>
     </>
