@@ -160,8 +160,8 @@ export default function Questions () {
            height: wrapperRef.current.clientHeight - 100
          }}/>
       ))}
-      <Form onSubmit={form.handleSubmit} onMouseEnter={showItems} onMouseLeave={hideItems}>
-      <InputWrapper ref={cardRef} style={{ height: 260, opacity: 0.5 }}>
+      <Form onSubmit={form.handleSubmit}>
+      <InputWrapper ref={cardRef} style={{ height: 260, opacity: 0.5 }} onMouseEnter={showItems} onMouseLeave={hideItems}>
 
         <Label style={{ transform: 'translate(0, 10px)', opacity: 0 }}>
           <p>Your name</p>

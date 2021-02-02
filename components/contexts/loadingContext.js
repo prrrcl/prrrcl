@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState, useRef, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import gsap, { TweenMax, Power3 } from 'gsap'
-import { set } from 'lodash'
+import gsap from 'gsap'
 
 const TIME_TRANSITION = 1
 
@@ -158,6 +157,7 @@ export default function LoadingContextProvider ({ children }) {
       {
         alpha: 1
       }, {
+        onStart: () => router.push(url),
         delay: 0.1,
         duration: TIME_TRANSITION / 2,
         alpha: 0
@@ -181,7 +181,6 @@ export default function LoadingContextProvider ({ children }) {
     gsap.fromTo(
       loadingWrapper.current,
       {
-        onStart: () => router.push(url),
         top: 0
       }, {
         duration: TIME_TRANSITION / 2,
@@ -198,7 +197,7 @@ export default function LoadingContextProvider ({ children }) {
 
   const navigatePromise = useMemo(() => new Promise((resolve, reject) => {
     // I manage this with a promises for the future API calls
-    setTimeout(resolve, TIME_TRANSITION * 4000)
+    setTimeout(resolve, TIME_TRANSITION * 3500)
   }), [TIME_TRANSITION])
 
   const navigate = (url) => {

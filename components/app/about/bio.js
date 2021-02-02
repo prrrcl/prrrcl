@@ -29,7 +29,7 @@ h2 {
     height: 316px;
     display: flex;
     justify-content: center;
-    &:first-child{
+    &:first-of-type{
       height: 150px;
     }
   }
