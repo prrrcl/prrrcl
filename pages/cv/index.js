@@ -1,40 +1,58 @@
 import cvService from 'components/services/cv'
 import { eachYearOfInterval, format } from 'date-fns'
-import { useEffect, useState } from 'react'
-import { getStart, WrapperCv, Year } from './comps'
-import Works from './works'
+import { Year, Download } from 'pages/cv/comps'
+import { Work } from 'pages/cv/works'
+import { COLORS_ARRAY } from 'styles'
 
 const sinceDate = new Date('01-01-2019')
 const today = new Date()
 const diff = eachYearOfInterval({ start: sinceDate, end: today })
 
-export default function CV () {
-  const [cv, setCv] = useState(null)
-  useEffect(() => {
-    cvService.getCv().then(setCv)
-  }, [])
+export default function Cv ({ cv }) {
   return (
-    <WrapperCv>
-      <Works data={cv?.studies} date={sinceDate} total={diff.length} />
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-      {diff.map((y, i) => (
+    <>
+
+    {Object.keys(cv).map(type => cv[type].map((w, i) => (
+      <Work key={i} data={w} from={sinceDate} index={i} />
+    )))}
+    {diff.map((y, i) => (
         <Year key={y} index={i} total={diff.length}>
           <div className="year">{format(y, 'y')}</div>
+          {i === diff.length - 1 && (
+          <a href="/cv.pdf" className="download" target="_blank">
+            <Download>
+              <h4>Download pdf version</h4>
+            </Download>
+          </a>
+          )}
         </Year>
-      ))}
-      </div>
-      <div className="today" />
-      <Works data={cv?.works} date={sinceDate} total={diff.length} />
-      <style jsx>{`
-        .today {
-          position:absolute;
-          top: ${getStart(sinceDate, new Date())}%;
-          height: ${100 - getStart(sinceDate, new Date())}%;
-          width: 100%;
-          background: rgba(255,255,255,.8);
-          filter: blur(10px)
-        }
-      `}</style>
-    </WrapperCv>
+    ))}
+
+    <style jsx>{`
+      .download {
+        position: absolute;
+        width: 30px;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%)
+      }
+      h4 {
+        background: ${COLORS_ARRAY[4]};
+        padding: 5px;
+        border-radius: 5px;
+        text-align: center;
+        position: absolute;
+        bottom: 100%;
+        transform: translateY(20%)
+      }
+    `}</style>
+    </>
   )
+}
+
+export async function getStaticProps () {
+  const cv = await cvService.getCv()
+  return {
+    props: { cv }
+  }
 }

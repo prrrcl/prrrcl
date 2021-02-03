@@ -1,6 +1,34 @@
 import styled from '@emotion/styled'
 import { COLORS_ARRAY } from 'styles'
 
+const GRAYS = ['#ccc', '#808080', '#434343']
+
+export const Download = styled.div`
+  outline: none;
+  border: 0;
+  border-radius: 50%;
+  position: absolute;
+  background: ${COLORS_ARRAY[1]};
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  top:0;
+  transition:all .5s cubic-bezier(.77,0,.175,1);
+  justify-content: center;
+  &:hover{
+    top: 5px;
+    transition:all .5s cubic-bezier(.77,0,.175,1);
+
+  }
+  &:after{
+    content: '➜';
+    transform: rotate(90deg);
+    position: absolute;
+    margin-left: 2px;
+  }
+`
+
 export const WrapperCv = styled.section`
   width: 100%;
   height: 100%;
@@ -11,13 +39,19 @@ export const Year = styled.article`
   height: ${({ total }) => 100 / total}%;
   width: 100%;
   position: relative;
+    &:hover {
+      &:before{
+        background: ${({ index }) => COLORS_ARRAY[index]}
+      }
+    }
   &:before{
+    transition:all .5s cubic-bezier(.77,0,.175,1);
     content: '';
     height: 100%;
     width: 4px;
     position: absolute;
     left: 50%;
-    background: ${({ index }) => COLORS_ARRAY[index]};
+    background: ${({ index }) => GRAYS[index]};
     transform: translateX(-50%);
   }
   &:not(:last-of-type):after {

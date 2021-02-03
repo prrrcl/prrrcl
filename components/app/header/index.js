@@ -156,6 +156,7 @@ export default function Header () {
       background: black;
       border-radius: 50%;
       pointer-events: none;
+      z-index: 1000;
     }
     `}</style>
     </>
