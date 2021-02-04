@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-export const Section = styled.section`
+const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,3 +74,4 @@ export const BioWrapper = styled.article`
    }
    }
 `
+export default Section

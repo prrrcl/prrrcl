@@ -7,7 +7,7 @@ import { random } from 'lodash'
 import { useEffect, useState, useRef } from 'react'
 
 import { COLORS_ARRAY } from 'styles'
-import { getStart } from './comps'
+import getStart from './comps'
 const bgAnim = keyframes`
   0% {
     background-position-x:-400px;

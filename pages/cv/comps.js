@@ -78,7 +78,7 @@ export const Year = styled.article`
   }
 `
 
-export const getStart = (since, fromDate) => {
+export default function getStart (since, fromDate) {
   const now = new Date(new Date().getFullYear(), 11, 31).getTime() - since
   const from = new Date(fromDate).getTime() - since
 
