@@ -195,14 +195,9 @@ export default function LoadingContextProvider ({ children }) {
     )
   }
 
-  const navigatePromise = useMemo(() => new Promise((resolve, reject) => {
-    // I manage this with a promises for the future API calls
-    setTimeout(resolve, TIME_TRANSITION * 3500)
-  }), [TIME_TRANSITION])
-
   const navigate = (url) => {
-    navigatePromise.then(
-      () => animLeave(url)
+    router.prefetch(url).then(
+      () => setTimeout(() => animLeave(url), 2000)
     )
   }
 
