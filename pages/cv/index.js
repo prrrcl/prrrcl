@@ -11,7 +11,6 @@ const diff = eachYearOfInterval({ start: sinceDate, end: today })
 export default function Cv ({ cv }) {
   return (
     <>
-
     {cv && Object.keys(cv).map(type => cv[type].map((w, i) => (
       <Work key={i} data={w} from={sinceDate} index={i} />
     )))}
@@ -51,8 +50,15 @@ export default function Cv ({ cv }) {
 }
 
 export async function getServerSideProps () {
-  const cv = await cvService.getCv()
-  return {
-    props: { cv }
+  try {
+    const cv = await cvService.getCv()
+    return {
+      props: { cv }
+    }
+  } catch (e) {
+    console.log('Cv error ->', e)
+    return {
+      props: { error: e }
+    }
   }
 }
