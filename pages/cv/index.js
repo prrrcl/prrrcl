@@ -1,7 +1,7 @@
 import cvService from 'components/services/cv'
 import { eachYearOfInterval, format } from 'date-fns'
-import { Year, Download } from 'pages/cv/comps'
-import { Work } from 'pages/cv/works'
+import { Year, Download } from 'components/app/cv/comps'
+import { Work } from 'components/app/cv/works'
 import { COLORS_ARRAY } from 'styles'
 
 const sinceDate = new Date('01-01-2019')
@@ -12,7 +12,7 @@ export default function Cv ({ cv }) {
   return (
     <>
 
-    {Object.keys(cv).map(type => cv[type].map((w, i) => (
+    {cv && Object.keys(cv).map(type => cv[type].map((w, i) => (
       <Work key={i} data={w} from={sinceDate} index={i} />
     )))}
     {diff.map((y, i) => (
@@ -50,7 +50,7 @@ export default function Cv ({ cv }) {
   )
 }
 
-export async function getStaticProps () {
+export async function getServerSideProps () {
   const cv = await cvService.getCv()
   return {
     props: { cv }

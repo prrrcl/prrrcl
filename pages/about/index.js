@@ -3,7 +3,7 @@ import Questions from 'components/app/about/questions'
 import useAnimation from 'components/hooks/useAnimation'
 import useLoading from 'components/hooks/useLoading'
 import useNearScreen from 'components/hooks/useNearScreen'
-import Section, { BioWrapper } from './comps'
+import Section, { BioWrapper } from '../../components/app/about/comps'
 const animationTitle = {
   x: 100,
   alpha: 0,
