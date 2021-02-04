@@ -3,12 +3,20 @@ import { eachYearOfInterval, format } from 'date-fns'
 import { Year, Download } from 'components/app/cv/comps'
 import { Work } from 'components/app/cv/works'
 import { COLORS_ARRAY } from 'styles'
+import { useEffect, useState } from 'react'
 
 const sinceDate = new Date('01-01-2019')
 const today = new Date()
 const diff = eachYearOfInterval({ start: sinceDate, end: today })
 
-export default function Cv ({ cv }) {
+export default function Cv () {
+  const [cv, setCv] = useState()
+
+  useEffect(() => {
+    cvService.getCv()
+      .then(setCv)
+  }, [])
+
   return (
     <>
     {cv && Object.keys(cv).map(type => cv[type].map((w, i) => (
@@ -47,18 +55,4 @@ export default function Cv ({ cv }) {
     `}</style>
     </>
   )
-}
-
-export async function getServerSideProps () {
-  try {
-    const cv = await cvService.getCv()
-    return {
-      props: { cv }
-    }
-  } catch (e) {
-    console.log('Cv error ->', e)
-    return {
-      props: { error: e }
-    }
-  }
 }
