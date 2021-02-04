@@ -20,19 +20,14 @@ const bgAnim = keyframes`
   }
 `
 const WorkWrapper = styled.div`
-  background: ${({ data }) => data.color || COLORS_ARRAY[random(0, COLORS_ARRAY.length - 1)]};
   position: absolute;
-
   min-height: 50px;
-  height: ${({ data, from }) => getStart(from, data.endAt || new Date()) - getStart(from, data.startAt)}%;
   @media (min-width: 768px){
-    left: ${() => random(0, 80)}%;
     width: 20%;
   }
   left: 0;
   width: 100%;
   padding: 15px;
-  top:${({ from, data }) => getStart(from, data.startAt)}%  ;
   border-radius: 10px;
   font-weight: bold;
   overflow: hidden;
@@ -68,8 +63,33 @@ const WorkWrapper = styled.div`
     }
 `
 export const Work = ({ data, from, total, index }) => {
+  const ref = useRef()
+  const { loadAnimations } = useLoading()
+
+  useEffect(() => {
+    if (loadAnimations) {
+      gsap.set(
+        ref.current,
+        {
+          background: `${data.color || COLORS_ARRAY[random(0, COLORS_ARRAY.length - 1)]}`,
+          height: `${getStart(from, data.endAt || new Date()) - getStart(from, data.startAt)}%`,
+          left: `${random(0, 80)}%`,
+          top: `${getStart(from, data.startAt)}%`
+        }
+      )
+      gsap.from(
+        ref.current,
+        {
+          y: -50,
+          opacity: 0,
+          delay: random(0, 1, true)
+        }
+      )
+    }
+  }, [loadAnimations])
+
   return (
-    <WorkWrapper data={data} from={from} total={total} index={index}>
+    <WorkWrapper ref={ref} data={data} from={from} total={total} index={index}>
       <h3>
         {data.name}
       </h3>
