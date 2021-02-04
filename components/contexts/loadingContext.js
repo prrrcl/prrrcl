@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState, useRef, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import { TweenMax, Power3, TimelineMax } from 'gsap'
+import gsap from 'gsap'
 
 const TIME_TRANSITION = 1
 
@@ -14,67 +14,70 @@ export default function LoadingContextProvider ({ children }) {
   const logo = useRef(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [loadAnimations, setLoadAnimations] = useState(false)
+  const { current: tlLogo } = useRef(gsap.timeline({ paused: true }))
   const router = useRouter()
 
   useEffect(() => {
     // First load of app
-    TweenMax.fromTo(
+    gsap.to(
       gradient.current,
       {
-        alpha: 0,
-        duration: 1
-      },
-      {
-        alpha: 1
+        alpha: 1,
+        duration: TIME_TRANSITION,
+        ease: 'power3.inOut'
       }
     )
-    TweenMax.fromTo(
+    gsap.from(
       gradient.current,
       {
-        backgroundPositionX: '-440px'
-      },
-      {
-        duration: TIME_TRANSITION * 3,
+        backgroundPositionX: '-440px',
         delay: 2,
-        backgroundPositionX: '0'
+        duration: TIME_TRANSITION * 2
       }
     )
-    TweenMax.staggerFromTo(
+    gsap.fromTo(
       logo.current.children,
-      TIME_TRANSITION,
       {
         y: 0
       }, {
+        delay: 0.25,
+        duration: TIME_TRANSITION,
         y: 50,
-        ease: Power3.easeOut
-      }, 0.04
-    )
-    TweenMax.to(
-      gradient.current,
-      TIME_TRANSITION / 2,
-      {
-        delay: TIME_TRANSITION * 3.3,
-        alpha: 0
+        ease: 'power3.out',
+        stagger: {
+          amount: 0.04
+        }
       }
     )
-    TweenMax.staggerTo(
-      logo.current.children,
-      TIME_TRANSITION / 0.5,
+
+    gsap.to(
+      gradient.current,
       {
-        y: 120,
-        delay: TIME_TRANSITION * 3.5,
-        ease: Power3.easeOut
-      },
-      0.02
+        alpha: 0,
+        delay: TIME_TRANSITION * 3.3,
+        duration: TIME_TRANSITION / 2
+      }
     )
 
-    TweenMax.to(
-      loadingWrapper.current,
-      TIME_TRANSITION,
+    gsap.to(
+      logo.current.children,
       {
+        y: 100,
+        delay: TIME_TRANSITION * 3.5,
+        ease: 'power3.out',
+        stagger: {
+          amount: 0.08
+        }
+      }
+    )
+
+    gsap.to(
+      loadingWrapper.current,
+      {
+        duration: TIME_TRANSITION,
         onStart: () => setLoadAnimations(true),
         delay: TIME_TRANSITION * 3.7,
-        ease: Power3.easeOut,
+        ease: 'power3.out',
         top: '100%',
         onComplete: () => {
           setIsLoaded(true)
@@ -82,63 +85,66 @@ export default function LoadingContextProvider ({ children }) {
         }
       }
     )
+
+    tlLogo
+      .fromTo(
+        logo.current.children,
+        {
+          y: 0
+        }, {
+          duration: TIME_TRANSITION,
+          y: 50,
+          ease: 'power3.out',
+          stagger: {
+            amount: 0.04
+          }
+        }
+      )
   }, [])
 
   const animEnter = (url, e) => {
-    setIsLoaded(false)
-    const tl = new TimelineMax({ repeat: -1, force3D: true })
-    tl.set(gradient.current, { backgroundPositionX: '0' })
-    e?.preventDefault()
-    TweenMax.fromTo(
-      gradient.current,
-      {
-        alpha: 0
-      }, {
-        duration: TIME_TRANSITION,
-        alpha: 1
-      }
-    )
-    tl.to(
+    gsap.to(
       gradient.current,
       {
         duration: TIME_TRANSITION * 3,
         backgroundPositionX: '-440px'
       }
     )
-    tl.to(
+    gsap.to(
       gradient.current,
       {
         duration: TIME_TRANSITION * 3,
-        ease: Power3.easeOut,
+        ease: 'power3.out',
         backgroundPositionX: '0'
       }
     )
-    tl.to(
+    gsap.to(
       gradient.current,
       {
         duration: TIME_TRANSITION * 3,
-        ease: Power3.easeOut,
+        ease: 'power3.out',
         backgroundPositionX: '-440px'
       }
     )
-    TweenMax.staggerFromTo(
-      logo.current.children,
-      TIME_TRANSITION,
+    e?.preventDefault()
+    setIsLoaded(false)
+    gsap.to(
+      gradient.current,
       {
-        y: 0
-      }, {
-        y: 50,
-        ease: Power3.easeOut
-      }, 0.04
+        onStart: () => tlLogo.play(),
+        alpha: 1,
+        delay: 0.2,
+        duration: TIME_TRANSITION
+      }
     )
-    TweenMax.fromTo(
+    gsap.fromTo(
       loadingWrapper.current,
-      TIME_TRANSITION,
       {
         bottom: '100%',
         top: 0
       }, {
-        ease: Power3.easeOut,
+        duration: TIME_TRANSITION,
+        ease: 'power3.out',
         onComplete: () => url && navigate(url),
         bottom: '0%'
       }
@@ -146,52 +152,52 @@ export default function LoadingContextProvider ({ children }) {
   }
 
   const animLeave = (url) => {
-    TweenMax.fromTo(
+    gsap.fromTo(
       gradient.current,
       {
-        onStart: () => setLoadAnimations(true),
         alpha: 1
       }, {
-        duration: TIME_TRANSITION / 3,
+        onStart: () => router.push(url),
+        delay: 0.1,
+        duration: TIME_TRANSITION / 2,
         alpha: 0
       }
     )
-    TweenMax.staggerTo(
+
+    gsap.to(
       logo.current.children,
-      TIME_TRANSITION,
       {
+        onStart: () => setLoadAnimations(true),
+        duration: TIME_TRANSITION,
+        delay: 0.1,
         y: 100,
-        ease: Power3.easeOut
-      }, 0.04
+        ease: 'power3.out',
+        stagger: {
+          amount: 0.08
+        }
+      }
     )
-    TweenMax.fromTo(
+
+    gsap.fromTo(
       loadingWrapper.current,
-      TIME_TRANSITION,
       {
-        onStart: () => router.push(url),
         top: 0
       }, {
         duration: TIME_TRANSITION / 2,
-        delay: TIME_TRANSITION / 3,
+        delay: TIME_TRANSITION / 2,
         top: '100%',
-        ease: Power3.easeOut,
+        ease: 'power3.out',
         onComplete: () => {
           setIsLoaded(true)
           setLoadAnimations(false)
         }
-
       }
     )
   }
 
-  const navigatePromise = useMemo(() => new Promise((resolve, reject) => {
-    // I manage this with a promises for the future API calls
-    setTimeout(resolve, TIME_TRANSITION * 4000)
-  }))
-
   const navigate = (url) => {
-    navigatePromise.then(
-      () => animLeave(url)
+    router.prefetch(url).then(
+      () => setTimeout(() => animLeave(url), 2000)
     )
   }
 

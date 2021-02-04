@@ -9,7 +9,7 @@ const Burguer = styled.div`
   position:  relative;
 `
 const MenuWrapper = styled.nav`
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   pointer-events: none;
@@ -156,6 +156,7 @@ export default function Header () {
       background: black;
       border-radius: 50%;
       pointer-events: none;
+      z-index: 1000;
     }
     `}</style>
     </>

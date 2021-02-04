@@ -28,7 +28,7 @@ export const BioWrapper = styled.article`
      margin: -40px 0 50px;
      span {
        position: absolute;
-       &:nth-child(2) {
+       &:nth-of-type(2) {
          top: 40px;
          left: 0px;
          font-size: 8rem;
@@ -60,7 +60,7 @@ export const BioWrapper = styled.article`
     height: 225px;
     span {
        position: absolute;
-       &:nth-child(2) {
+       &:nth-of-type(2) {
          top: 90px;
          left: 50px;
          font-size: 10rem;

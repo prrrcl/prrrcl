@@ -8,9 +8,6 @@ import useLoading from 'components/hooks/useLoading'
 const Wrapper = styled.div`
 width: 100%;
 margin: 40px 0;
-@media (min-width: 768px) {
-  margin: 100px 0;
-}
 h2 {
   font-size: 3em;
   display: flex;
@@ -29,9 +26,21 @@ h2 {
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: 76px;
+    height: 316px;
     display: flex;
     justify-content: center;
+    &:first-of-type{
+      height: 150px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  margin: 100px 0;
+  h2 {
+  .line {
+    height: 76px;
+  }
   }
 }
 `
@@ -51,14 +60,22 @@ const ImageWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  img {
+    width: 100%;
+  }
   &:after {
     content: '💖';
-    top: 20px;
     left: 50%;
+    top: 0;
+    font-size: 1em;
     transform: translateX(-50%);
-    font-size: 3em;
     position: absolute;
     animation: ${anim} infinite 5s;
+  }
+  @media (min-width: 768px) {
+    top: 20px;
+    font-size: 3em;
+
   }
 `
 const animation = {
