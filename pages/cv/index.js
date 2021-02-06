@@ -15,7 +15,10 @@ export default function Cv () {
 
   useEffect(() => {
     cvService.getCv()
-      .then(setCv)
+      .then((c) => {
+        setCv(c)
+        setError(c)
+      })
       .catch((e) => setError(e))
   }, [])
 
@@ -34,7 +37,7 @@ export default function Cv () {
           )}
         </Year>
     ))}
-    {error && <div>{error}</div>}
+    {error && <div>{JSON.stringify(error)}</div>}
   {cv && Object.keys(cv).map(type => cv[type].map((w, i) => (
         <Work key={i} data={w} from={sinceDate} index={i} />
   )))}

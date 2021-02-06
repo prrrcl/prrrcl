@@ -66,6 +66,7 @@ export const Work = ({ data, from, total, index }) => {
   const ref = useRef()
   const descRef = useRef()
   const [opened, setOpened] = useState(false)
+  const [isMobile] = useState(window.innerWidth <= 800)
   const { loadAnimations } = useLoading()
 
   useEffect(() => {
@@ -75,8 +76,9 @@ export const Work = ({ data, from, total, index }) => {
         {
           background: `${data.color || COLORS_ARRAY[random(0, COLORS_ARRAY.length - 1)]}`,
           height: `${getStart(from, data.endAt || new Date()) - getStart(from, data.startAt)}%`,
-          left: `${random(0, 80)}%`,
-          top: `${getStart(from, data.startAt)}%`
+          left: isMobile ? 0 : `${random(0, 80)}%`,
+          top: `${getStart(from, data.startAt)}%`,
+          zIndex: isMobile ? -1 : 1
         }
       )
       gsap.from(
@@ -133,7 +135,7 @@ export const Work = ({ data, from, total, index }) => {
           height: `${getStart(from, data.endAt || new Date()) - getStart(from, data.startAt)}%`,
           ease: 'power3.inOut',
           duration: 0.5,
-          zIndex: 1
+          zIndex: isMobile ? -1 : 1
         }
       )
     }
