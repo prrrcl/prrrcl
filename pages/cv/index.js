@@ -11,10 +11,12 @@ const diff = eachYearOfInterval({ start: sinceDate, end: today })
 
 export default function Cv () {
   const [cv, setCv] = useState()
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     cvService.getCv()
       .then(setCv)
+      .catch((e) => setError(e))
   }, [])
 
   return (
@@ -32,9 +34,10 @@ export default function Cv () {
           )}
         </Year>
     ))}
-{cv && Object.keys(cv).map(type => cv[type].map((w, i) => (
-      <Work key={i} data={w} from={sinceDate} index={i} />
-)))}
+    {error && <div>{error}</div>}
+  {cv && Object.keys(cv).map(type => cv[type].map((w, i) => (
+        <Work key={i} data={w} from={sinceDate} index={i} />
+  )))}
     <style jsx>{`
       .download {
         position: absolute;
