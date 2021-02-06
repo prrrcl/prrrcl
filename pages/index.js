@@ -1,65 +1,135 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Salut from 'components/app/home/salut'
+import useAnimation from 'components/hooks/useAnimation'
+import useLoading from 'components/hooks/useLoading'
 
-export default function Home() {
+const animation = {
+  y: 265,
+  ease: 'power4.out',
+  skewY: 12,
+  delay: 0.3,
+  stagger: {
+    amount: 0.4
+  }
+}
+export default function Home () {
+  const { loadAnimations } = useLoading()
+  const { ref } = useAnimation({ animation, duration: 1.8, childOfChilds: true, loadAnimations })
+  const { ref: ref2 } = useAnimation({ animation: { ...animation, alpha: 0 }, duration: 1.8, childOfChilds: true, loadAnimations })
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    <>
+    <main>
+      <section className="header-content">
+        <div className="salut-anim">
+          <Salut />
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+       <h1 ref={ref}>
+         <div className="line">
+          <span>
+          he
+          </span>
+         </div>
+         <div className="line">
+          <span>
+          llo.
+          </span>
+         </div>
+        </h1>
+        <div className="description" ref={ref2}>
+          <div className="line paragraph">
+            <span>
+            My name is Adri,
+            </span>
+          </div>
+          <div className="line paragraph">
+            <span>
+            I am <b>front end</b> engineer.
+            </span>
+          </div>
+          <div className="line paragraph">
+          <span>
+          welcome to my... site?
+          </span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <style jsx>{`
+    main{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .header-content {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: center;
+    }
+    h1 {
+      margin: 80px 0 30px;
+      font-size: 15em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 360px;
+      height: 380px;
+    }
+    .line {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 182px;
+    }
+    .line > span {
+      margin-top: -53px;
+    }
+    .description {
+      font-size: 2em;
+      width: 100%;
+    }
+    .paragraph {
+      height: 56px;
+      display: flex;
+      justify-content: center;
+    }
+    .paragraph > span {
+      margin-top: 0;
+    }
+    span {
+      position: absolute;
+    }
+    .salut-anim {
+      display: flex;
+      position:relative;
+      z-index: 15;
+      justify-content: center;
+    }
+    @media (min-width: 780px) {
+      h1 {
+        font-size: 18em;
+        height: 500px;
+        margin-bottom: 100px;
+        margin-top: 50px;
+      }
+      .header-content {
+        width: 50%;
+      }
+      .description {
+        font-size: 3em;
+        width: 100%;
+      }
+      .line:not(.paragraph) {
+        height: 282px;
+      }
+    }
+    `}</style>
+    </>
   )
 }
