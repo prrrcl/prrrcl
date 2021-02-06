@@ -167,7 +167,7 @@ export default function Questions () {
      {isMobile() && (
         <QuestionMobile>
         <h3>Some questions they have asked me</h3>
-        {inView.map((q, i) => (
+        {questions.slice(questions.length - 5, questions.length).map((q, i) => (
           <div key={i}>
             <QuestionText>
             &quot;{q.question}&quot; - {q.name}
