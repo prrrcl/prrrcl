@@ -1,11 +1,25 @@
 import questionsService from 'components/services/questions'
 import { useEffect, useRef, useState } from 'react'
 import { random } from 'lodash'
-import { Button, Form, Input, InputWrapper, Label, QuestionsWrapper } from './comps'
+import {
+  Button,
+  Form,
+  Input,
+  InputWrapper,
+  Label,
+  QuestionMobile,
+  QuestionsWrapper,
+  QuestionText,
+  AnswerText
+} from './comps'
 import Question from './questionItem'
 import gsap from 'gsap'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+
+function isMobile () {
+  try { document.createEvent('TouchEvent'); return true } catch (e) { return false }
+}
 
 export default function Questions () {
   const [questions, setQuestions] = useState([])
@@ -13,6 +27,7 @@ export default function Questions () {
   const [message, setMessage] = useState()
   const messageRef = useRef()
   const cardRef = useRef()
+  const wrapperRef = useRef()
 
   const newMessage = () => {
     setMessage(true)
@@ -57,32 +72,6 @@ export default function Questions () {
         })
     }
   })
-
-  const wrapperRef = useRef()
-
-  useEffect(() => {
-    questionsService.getQuestions()
-      .then(setQuestions)
-      .catch(e => console.log(e))
-  }, [])
-
-  useEffect(() => {
-    if (questions.length) {
-      const addInterval = setInterval(() => {
-        const i = random(0, questions.length - 1)
-        const question = questions[i]
-        if (!inView.some((q) => q.id === question.id)) {
-          setInview(old => ([...old, questions[i]]))
-        }
-      }, 3500)
-
-      return () => {
-        if (addInterval) {
-          clearInterval(addInterval)
-        }
-      }
-    }
-  }, [questions, inView])
 
   const handleDeleteInView = () => {
     if (inView.length === questions.length) {
@@ -149,9 +138,49 @@ export default function Questions () {
     )
   }
 
+  useEffect(() => {
+    questionsService.getQuestions()
+      .then(setQuestions)
+      .catch(e => console.log(e))
+  }, [])
+
+  useEffect(() => {
+    if (questions.length) {
+      const addInterval = setInterval(() => {
+        const i = random(0, questions.length - 1)
+        const question = questions[i]
+        if (!inView.some((q) => q.id === question.id)) {
+          setInview(old => ([...old, questions[i]]))
+        }
+      }, 3500)
+
+      return () => {
+        if (addInterval) {
+          clearInterval(addInterval)
+        }
+      }
+    }
+  }, [questions, inView])
+
   return (
+    <>
+     {isMobile() && (
+        <QuestionMobile>
+        <h3>Some questions they have asked me</h3>
+        {inView.map((q, i) => (
+          <div key={i}>
+            <QuestionText>
+            &quot;{q.question}&quot; - {q.name}
+            </QuestionText>
+            <AnswerText>
+        {q.answer}
+      </AnswerText>
+          </div>
+        ))}
+        </QuestionMobile>
+     )}
     <QuestionsWrapper ref={wrapperRef}>
-      {inView.map((q, i) => (
+      {!isMobile() && inView.map((q, i) => (
         <Question
          data={q}
          key={i}
@@ -172,7 +201,7 @@ export default function Questions () {
             name="name"
             value={form.values.name}
             onChange={form.handleChange}
-            style={{ fontSize: 20 }}
+            className="anon"
             placeholder="If you want, you can let empty for anonymous question" />
             {form.errors.name && form.touched.name && <p className="error">{form.errors.name}</p>}
         </Label>
@@ -195,6 +224,8 @@ export default function Questions () {
       </div>
       </InputWrapper>
       </Form>
+    </QuestionsWrapper>
+
       <style jsx>{`
       .error {
         color: red;
@@ -204,6 +235,6 @@ export default function Questions () {
         margin: 0 0 15px;
       }      
       `}</style>
-    </QuestionsWrapper>
+    </>
   )
 }

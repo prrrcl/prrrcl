@@ -17,11 +17,14 @@ export const QuestionsWrapper = styled.section`
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 800px;
   display: flex;
   align-items:center;
   justify-content: center;
   overflow: hidden;
+  @media (min-width: 768px) {
+    min-height: 800px;
+
+  }
 `
 export const Form = styled.form`
 position: relative;
@@ -64,11 +67,20 @@ width: 100%;
 export const Input = styled.input`
   outline: none;
   border: 0;
-  font-size: 2.5em;
   width: 100%;
   text-align: center;
   background: transparent;
   margin-bottom: 30px;
+  font-size: 1.5em;
+  @media (min-width: 768x) {
+  font-size: 2.5em;
+  &.anon {
+    font-size: 1.8em;
+  }
+  }
+  &.anon {
+    font-size: 1em;
+  }
 `
 
 export const InputWrapper = styled.div`
@@ -77,11 +89,14 @@ width: 100%;
 z-index: 15;
 padding: 10px 10px 30px;
 background: white;
-border-radius: 20px;
 overflow: hidden;
 display: flex;
 flex-direction: column;
 align-items: center;
+@media (min-width: 768px) {
+  border-radius: 20px;
+
+}
 
 &:after {
     content: '';
@@ -150,4 +165,14 @@ export const Button = styled.button`
       rgba(0,243,215,1) 100%
       );
       background-size: 300%;
+`
+export const QuestionMobile = styled.div`
+padding: 0 15px;
+h3 {
+  margin: 30px 0;
+  text-align: center;
+}
+& > div {
+  margin-bottom: 50px;
+}
 `

@@ -60,7 +60,7 @@ export default function Header () {
       circle.current,
       {
         transform: 'scale(120)',
-        duration: 1.2,
+        duration: 0.6,
         ease: 'power3.inOut'
       }
     )
