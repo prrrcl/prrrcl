@@ -1,4 +1,5 @@
-import * as firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBcuXtWQgbDfGUfYRruGngTQhtA1x6gQPU',
@@ -12,4 +13,16 @@ const firebaseConfig = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
+}
+
+export const autoLogin = () => {
+  firebase.auth().signInAnonymously()
+    .then(() => {
+
+    })
+    .catch((error) => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      console.log('ERROR', error)
+    })
 }

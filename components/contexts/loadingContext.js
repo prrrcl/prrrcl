@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState, useRef, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import gsap from 'gsap'
+import { autoLogin } from 'firebase/client'
 
 const TIME_TRANSITION = 1
 
@@ -18,6 +19,7 @@ export default function LoadingContextProvider ({ children }) {
   const router = useRouter()
 
   useEffect(() => {
+    autoLogin()
     // First load of app
     gsap.to(
       gradient.current,

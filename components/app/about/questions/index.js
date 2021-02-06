@@ -50,10 +50,11 @@ export default function Questions () {
       question: Yup.string().required('This field is required')
     }),
     onSubmit: (values, { resetForm }) => {
-      questionsService.addQuestion(values).then(d => {
-        newMessage()
-        resetForm()
-      })
+      questionsService.addQuestion(values)
+        .then(d => {
+          newMessage()
+          resetForm()
+        })
     }
   })
 
@@ -62,6 +63,7 @@ export default function Questions () {
   useEffect(() => {
     questionsService.getQuestions()
       .then(setQuestions)
+      .catch(e => console.log(e))
   }, [])
 
   useEffect(() => {

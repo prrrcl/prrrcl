@@ -1,10 +1,9 @@
 import { keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
-import useAnimation from 'components/hooks/useAnimation'
 import useLoading from 'components/hooks/useLoading'
 import gsap from 'gsap'
 import { random } from 'lodash'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { COLORS_ARRAY } from 'styles'
 import getStart from './comps'
@@ -22,6 +21,7 @@ const bgAnim = keyframes`
 const WorkWrapper = styled.div`
   position: absolute;
   min-height: 50px;
+  cursor: pointer;
   @media (min-width: 768px){
     width: 20%;
   }
@@ -52,7 +52,7 @@ const WorkWrapper = styled.div`
     left:  0;
     animation: 10s ${bgAnim} infinite;
     filter: blur(1ae0px);
-    mix-blend-mode: soft-light
+    mix-blend-mode: soft-light;
   }
   ul {
       overflow: hidden;
@@ -64,6 +64,8 @@ const WorkWrapper = styled.div`
 `
 export const Work = ({ data, from, total, index }) => {
   const ref = useRef()
+  const descRef = useRef()
+  const [opened, setOpened] = useState(false)
   const { loadAnimations } = useLoading()
 
   useEffect(() => {
@@ -88,11 +90,65 @@ export const Work = ({ data, from, total, index }) => {
     }
   }, [loadAnimations])
 
+  useEffect(() => {
+    if (opened) {
+      gsap.to(
+        ref.current,
+        {
+          height: 80 + descRef.current.clientHeight,
+          ease: 'power3.inOut',
+          duration: 0.5,
+          zIndex: 120
+        }
+      )
+      gsap.to(
+        descRef.current.children,
+        {
+          y: 0,
+          alpha: 1,
+          ease: 'power3.inOut',
+          duration: 0.5,
+          stagger: {
+            amount: 0.3
+          }
+        }
+      )
+    } else {
+      gsap.to(
+        descRef.current.children,
+        {
+          y: -10,
+          alpha: 0,
+          ease: 'power3.inOut',
+          duration: 0.5,
+          stagger: {
+            amount: 0.2
+          }
+        }
+      )
+      gsap.to(
+        ref.current,
+        {
+          delay: 0.3,
+          height: `${getStart(from, data.endAt || new Date()) - getStart(from, data.startAt)}%`,
+          ease: 'power3.inOut',
+          duration: 0.5,
+          zIndex: 1
+        }
+      )
+    }
+  }, [opened])
+
   return (
-    <WorkWrapper ref={ref} data={data} from={from} total={total} index={index}>
+    <WorkWrapper ref={ref} onClick={() => setOpened(!opened)}>
       <h3>
         {data.name}
       </h3>
+      <ul ref={descRef}>
+        {data.description.map((desc, i) => (
+          <li key={i}>{desc}</li>
+        ))}
+      </ul>
     </WorkWrapper>
   )
 }

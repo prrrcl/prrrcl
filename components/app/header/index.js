@@ -108,7 +108,7 @@ export default function Header () {
     link: '/about'
   }, {
     name: 'contact',
-    link: '/contact'
+    link: 'mailto:adrianporcelnavarro@hotmail.com'
   }, {
     name: 'cv',
     link: '/cv'
@@ -124,13 +124,21 @@ export default function Header () {
     </header>
       <MenuWrapper className={menuOpened ? 'opened' : ''}>
         <ul ref={menuItems}>
-          {menu.map(item => (
+          {menu.map(item => item.name !== 'contact'
+            ? (
             <li key={item.name} onClick={navigate}>
               <Link href={item.link}>
                 {item.name}
               </Link>
             </li>
-          ))}
+              )
+            : (
+            <li key={item.name}>
+              <a href={item.link}>
+                {item.name}
+              </a>
+            </li>
+              ))}
         </ul>
       </MenuWrapper>
     <style jsx>{`

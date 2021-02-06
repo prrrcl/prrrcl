@@ -19,9 +19,7 @@ export default function Cv () {
 
   return (
     <>
-    {cv && Object.keys(cv).map(type => cv[type].map((w, i) => (
-      <Work key={i} data={w} from={sinceDate} index={i} />
-    )))}
+
     {diff.map((y, i) => (
         <Year key={y} index={i} total={diff.length}>
           <div className="year">{format(y, 'y')}</div>
@@ -34,7 +32,9 @@ export default function Cv () {
           )}
         </Year>
     ))}
-
+{cv && Object.keys(cv).map(type => cv[type].map((w, i) => (
+      <Work key={i} data={w} from={sinceDate} index={i} />
+)))}
     <style jsx>{`
       .download {
         position: absolute;
