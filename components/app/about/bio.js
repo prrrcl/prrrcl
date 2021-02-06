@@ -58,8 +58,6 @@ const anim = keyframes`
 
 const ImageWrapper = styled.div`
   position: relative;
-  display: flex;
-  justify-content: center;
   img {
     width: 100%;
   }

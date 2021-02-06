@@ -98,7 +98,10 @@ export default function Header () {
   }
 
   const navigate = () => {
-    setTimeout(() => tl.reverse(-1), 1000)
+    setTimeout(() => {
+      tl.reverse(-1)
+      setMenuOpened(false)
+    }, 1000)
   }
   const menu = [{
     name: 'home',
