@@ -5,7 +5,7 @@ import { Work } from 'components/app/cv/works'
 import { COLORS_ARRAY } from 'styles'
 import { useEffect, useState } from 'react'
 
-const sinceDate = new Date('01-01-2019')
+const sinceDate = new Date('01/01/2019')
 const today = new Date()
 const diff = eachYearOfInterval({ start: sinceDate, end: today })
 
@@ -17,14 +17,12 @@ export default function Cv () {
     cvService.getCv()
       .then((c) => {
         setCv(c)
-        setError(c)
       })
       .catch((e) => setError(e))
   }, [])
 
   return (
     <>
-
     {diff.map((y, i) => (
         <Year key={y} index={i} total={diff.length}>
           <div className="year">{format(y, 'y')}</div>
@@ -37,7 +35,6 @@ export default function Cv () {
           )}
         </Year>
     ))}
-    {error && <div>{JSON.stringify(error)}</div>}
   {cv && Object.keys(cv).map(type => cv[type].map((w, i) => (
         <Work key={i} data={w} from={sinceDate} index={i} />
   )))}
