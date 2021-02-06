@@ -190,6 +190,7 @@ export default function LoadingContextProvider ({ children }) {
         top: '100%',
         ease: 'power3.out',
         onComplete: () => {
+          tlLogo.reverse()
           setIsLoaded(true)
           setLoadAnimations(false)
         }
