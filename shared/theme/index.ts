@@ -10,6 +10,14 @@ const theme = extendTheme(
       global: {
         body: {
           color: "black",
+          cursor: "none",
+          scrollBehavior: "smooth",
+        },
+        html: {
+          scrollBehavior: "smooth",
+        },
+        a: {
+          cursor: "none",
         },
       },
     },

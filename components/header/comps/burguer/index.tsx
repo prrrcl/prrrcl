@@ -4,9 +4,11 @@ import { useAtom } from "jotai"
 
 import variants from "./variants"
 import IS_BURGUER_OPEN from "./atoms"
+import useCursor from "shared/hooks/useCursor"
 
 export default function Burguer() {
   const [open, setOpen] = useAtom(IS_BURGUER_OPEN)
+  const { handleIn, handleOut } = useCursor()
 
   const toggle = () => setOpen((old) => !old)
 
@@ -17,8 +19,9 @@ export default function Burguer() {
       top="50%"
       transform="translate(-50%, -50%)"
       onClick={toggle}
-      cursor="pointer"
       p="4"
+      onMouseEnter={() => handleIn()}
+      onMouseLeave={() => handleOut()}
     >
       {Object.keys(variants).map((key) => (
         <Box
