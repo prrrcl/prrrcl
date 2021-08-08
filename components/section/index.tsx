@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react"
 import { IProps } from "./utils"
 
 export default function Section(props: IProps) {
-  const { bg, children } = props
+  const { bg, children, mt } = props
 
   const ref = useRef<any>()
   const [height, setHeight] = useState(0)
@@ -18,12 +18,12 @@ export default function Section(props: IProps) {
   const { scrollY } = useViewportScroll()
   const y = useTransform(
     scrollY,
-    [offset * 0.2, offset * 1.2],
+    [offset * 0.3, offset * 1.2],
     ["-5vh", "-30vh"]
   )
   const borderRadiusNum = useTransform(
     scrollY,
-    [offset, offset + height],
+    [offset + height - height * 0.5, offset + height],
     [50, 0]
   )
   const borderRadius = useMotionTemplate`${borderRadiusNum}%`
@@ -34,7 +34,7 @@ export default function Section(props: IProps) {
   }, [])
 
   return (
-    <Box as="section" pos="relative" pt={["20", "80"]} ref={ref}>
+    <Box as="section" pos="relative" pt={["20", "80"]} ref={ref} mt={mt}>
       <Box position="relative">
         <Box pt="10vh" pb="20vh" h="100%">
           <Box
@@ -47,10 +47,11 @@ export default function Section(props: IProps) {
             zIndex="base"
             // @ts-ignore
             style={{ borderRadius, y }}
+            transform={["translateY(0) !important", "translateY(0)"]}
           />
           <Box
             pos="absolute"
-            top="80vh"
+            top={["50vw", "80vh"]}
             w="full"
             h="200vh"
             bg={bg || "red.100"}

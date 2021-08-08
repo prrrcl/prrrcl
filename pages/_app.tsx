@@ -4,8 +4,9 @@ import theme, { Fonts } from "shared/theme"
 import { Provider } from "jotai"
 import Cursor from "components/cursor"
 import Header from "components/header"
+import TransitionWrapper from "components/transition/wrapper"
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <Provider>
@@ -13,7 +14,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Cursor />
         <Box bg="white">
           <Header />
-          <Component {...pageProps} />
+          <TransitionWrapper pathname={router.pathname}>
+            <Component
+              key={`main-component-${router.pathname}`}
+              {...pageProps}
+            />
+          </TransitionWrapper>
         </Box>
       </Provider>
     </ChakraProvider>

@@ -10,7 +10,14 @@ export default function Burguer() {
   const [open, setOpen] = useAtom(IS_BURGUER_OPEN)
   const { handleIn, handleOut } = useCursor()
 
-  const toggle = () => setOpen((old) => !old)
+  const toggle = () =>
+    setOpen((old) => {
+      if (document.querySelector("body")) {
+        // @ts-ignore
+        document.querySelector("body").style.overflow = !old ? "hidden" : "auto"
+      }
+      return !old
+    })
 
   return (
     <Box
