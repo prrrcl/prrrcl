@@ -1,6 +1,6 @@
-import { ChakraProps } from "@chakra-ui/react"
+import { ChakraProps, StackProps } from "@chakra-ui/react"
 
-export interface IProps extends ChakraProps {
+export interface IProps extends ChakraProps, StackProps {
   children: any
 }
 

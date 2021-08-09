@@ -4,8 +4,8 @@ import me from "public/assets/img/home.jpg"
 
 export default function MainHeader() {
   return (
-    <Box pos="relative">
-      <Image src={me} alt="me" layout="responsive" />
+    <Box pos="relative" mb={["20", "96"]}>
+      <Image src={me} alt="me" layout="responsive" placeholder="blur" />
       <Box
         bgGradient="linear(transparent 35%, white 100%)"
         pos="absolute"

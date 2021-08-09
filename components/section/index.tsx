@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react"
 import { IProps } from "./utils"
 
 export default function Section(props: IProps) {
-  const { bg, children, mt } = props
+  const { bg, children, mt, spacing } = props
 
   const ref = useRef<any>()
   const [height, setHeight] = useState(0)
@@ -23,7 +23,7 @@ export default function Section(props: IProps) {
   )
   const borderRadiusNum = useTransform(
     scrollY,
-    [offset + height - height * 0.5, offset + height],
+    [offset + height - height * 0.75, offset + height],
     [50, 0]
   )
   const borderRadius = useMotionTemplate`${borderRadiusNum}%`
@@ -34,7 +34,7 @@ export default function Section(props: IProps) {
   }, [])
 
   return (
-    <Box as="section" pos="relative" pt={["20", "80"]} ref={ref} mt={mt}>
+    <Box as="section" pos="relative" ref={ref} mt={mt}>
       <Box position="relative">
         <Box pt="10vh" pb="20vh" h="100%">
           <Box
@@ -57,7 +57,13 @@ export default function Section(props: IProps) {
             bg={bg || "red.100"}
             zIndex="base"
           />
-          <Stack zIndex="docked" pos="relative" alignItems="center">
+          <Stack
+            zIndex="docked"
+            pos="relative"
+            alignItems="center"
+            mx={["3", "0"]}
+            spacing={spacing}
+          >
             {children}
           </Stack>
         </Box>
