@@ -27,7 +27,7 @@ export default function Home() {
     <Layout>
       <MainHeader />
 
-      <Section bg="black" mt={["-20vw", "-50vw"]} spacing="5">
+      <Section bg="black" mt={["-20vw", "-50vw"]} spacing="5" multiSection>
         <Memoji mt={["-40vw", "-60"]} />
         <Box fontSize={["3xl", "5xl"]} color="white">
           <Heading
@@ -64,8 +64,9 @@ export default function Home() {
             <Text>enthusiast.</Text>
           </Box>
           <Text maxW="container.lg" mb="32">
-            Gamer, and passionate about beautiful websites, at the age of 26, I
-            have worked as a graphic designer and now as a front end.
+            Gamer, and passionate about beautiful and usables websites, at the
+            age of 26, I have worked as a graphic designer and now as a front
+            end.
             <br />
             <br /> I decided to change my professional career at 24 👼, to be
             able to dedicate myself 100% to what really fulfills me.
@@ -73,97 +74,8 @@ export default function Home() {
         </Box>
         <Messages />
       </Section>
-      <Section bg="teal.100">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </Section>
-      <Section bg="blue.100">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </Section>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <Section bg="teal.100">a</Section>
+      <Section bg="blue.100">a</Section>
     </Layout>
   )
 }

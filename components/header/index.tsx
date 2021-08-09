@@ -47,7 +47,7 @@ export default function Header() {
             <Link href="/" passHref>
               <Box
                 as="a"
-                onMouseEnter={() => handleIn()}
+                onMouseEnter={() => handleIn({ onHoverText: "Go to top!" })}
                 onMouseLeave={() => handleOut()}
               >
                 <Heading

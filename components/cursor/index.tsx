@@ -21,8 +21,8 @@ const variants = {
     scale: 1.5,
   },
   hoverWithText: {
-    y: -7,
-    x: -5,
+    y: 0,
+    x: 0,
     scale: 5,
   },
 }
@@ -88,7 +88,7 @@ function CustomCursor() {
       mixBlendMode={state === "hoverWithText" ? "unset" : "difference"}
       display={["none", "block"]}
     >
-      <Box position="relative">
+      <Box position="relative" w="full" h="full">
         <Box
           as={motion.div}
           animate={variants[state]}
@@ -102,13 +102,17 @@ function CustomCursor() {
           <Box
             position="absolute"
             pointerEvents="none"
-            as="span"
             color={bg}
             zIndex="popover"
             top="50%"
             left="50%"
             textAlign="center"
+            d="flex"
+            alignItems="center"
+            justifyContent="center"
             transform="translate(-50%, -50%)"
+            w="28"
+            h="28"
           >
             {text}
           </Box>

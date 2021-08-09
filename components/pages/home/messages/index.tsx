@@ -1,9 +1,10 @@
-import { HStack, IconButton, Stack, Textarea } from "@chakra-ui/react"
-import { useCallback, useEffect, useState } from "react"
+import { HStack, IconButton, Stack, Textarea, useToast } from "@chakra-ui/react"
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import Message from "../message"
 import variants from "./variants"
 import { ArrowUpIcon } from "@chakra-ui/icons"
+import appService from "shared/services/appService"
 
 interface IQuestion {
   index?: number
@@ -11,19 +12,12 @@ interface IQuestion {
   answer: string
 }
 
-const data: IQuestion[] = [
-  {
-    question: "some question",
-    answer: "some answer",
-  },
-  {
-    question: "some question 2",
-    answer: "some answer 2",
-  },
-]
-
 export default function Messages() {
+  const [rawData, setRawData] = useState<IQuestion[]>([])
   const [selectedData, setData] = useState<IQuestion | null>(null)
+  const [text, setText] = useState("")
+  const [error, setError] = useState(false)
+  const toast = useToast()
 
   const selectDataOnTime = useCallback(async () => {
     const lastIndex = selectedData?.index || 0
@@ -31,12 +25,52 @@ export default function Messages() {
     setData(null)
     // set data to null for new transition of components
     await new Promise((resolve) => setTimeout(resolve, 2000))
-    if (data[lastIndex + 1]) {
-      setData({ ...data[lastIndex + 1], index: lastIndex + 1 })
+    if (rawData[lastIndex + 1]) {
+      setData({ ...rawData[lastIndex + 1], index: lastIndex + 1 })
     } else {
-      setData({ ...data[0], index: 0 })
+      setData({ ...rawData[0], index: 0 })
     }
-  }, [selectedData])
+  }, [rawData, selectedData?.index])
+
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const {
+      target: { value },
+    } = e
+    setText(value)
+  }
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setError(false)
+    if (!text) {
+      setError(true)
+      toast({
+        status: "error",
+        description: "Please enter a message",
+      })
+      return
+    }
+    appService
+      .postMessage(text)
+      .then(() => {
+        setText("")
+        toast({
+          status: "success",
+          title: "Message sent!",
+          description: "I will answer you as soon as possible!",
+        })
+      })
+      .catch(() => {
+        toast({
+          status: "error",
+          description: "Something went wrong, please try again",
+        })
+      })
+  }
+
+  useEffect(() => {
+    appService.getMessages().then(setRawData)
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -74,23 +108,29 @@ export default function Messages() {
           )}
         </AnimatePresence>
       </Stack>
-      <HStack>
-        <Textarea
-          color="white"
-          placeholder="Do you want to know more about me? Ask me!"
-        />
-        <IconButton
-          aria-label="send"
-          icon={<ArrowUpIcon />}
-          borderRadius="full"
-          color="white"
-          bg="blue.400"
-          _hover={{
-            bg: "blue.800",
-            cursor: "none",
-          }}
-        />
-      </HStack>
+      <form onSubmit={handleSubmit}>
+        <HStack>
+          <Textarea
+            isInvalid={error}
+            value={text}
+            onChange={handleChange}
+            color="white"
+            placeholder="Do you want to know more about me? Ask me!"
+          />
+          <IconButton
+            type="submit"
+            aria-label="send"
+            icon={<ArrowUpIcon />}
+            borderRadius="full"
+            color="white"
+            bg="blue.400"
+            _hover={{
+              bg: "blue.800",
+              cursor: "none",
+            }}
+          />
+        </HStack>
+      </form>
     </Stack>
   )
 }

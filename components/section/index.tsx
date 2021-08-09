@@ -16,14 +16,9 @@ export default function Section(props: IProps) {
   const [offset, setOffset] = useState(0)
 
   const { scrollY } = useViewportScroll()
-  const y = useTransform(
-    scrollY,
-    [offset * 0.3, offset * 1.2],
-    ["-5vh", "-30vh"]
-  )
   const borderRadiusNum = useTransform(
     scrollY,
-    [offset + height - height * 0.75, offset + height],
+    [offset, offset + height],
     [50, 0]
   )
   const borderRadius = useMotionTemplate`${borderRadiusNum}%`
@@ -46,14 +41,13 @@ export default function Section(props: IProps) {
             bg={bg || "red.100"}
             zIndex="base"
             // @ts-ignore
-            style={{ borderRadius, y }}
-            transform={["translateY(0) !important", "translateY(0)"]}
+            style={{ borderRadius }}
           />
           <Box
             pos="absolute"
-            top={["50vw", "80vh"]}
+            top={["50vw"]}
             w="full"
-            h="200vh"
+            h="full"
             bg={bg || "red.100"}
             zIndex="base"
           />

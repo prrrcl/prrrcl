@@ -25,6 +25,8 @@ export default function Message(props: IProps) {
         borderRadius="2xl"
         fontSize="large"
         pos="relative"
+        mr={type === "question" ? 0 : "20"}
+        ml={type === "answer" ? 0 : "20"}
         _before={{
           bottom: "-0.1rem",
           content: `""`,
