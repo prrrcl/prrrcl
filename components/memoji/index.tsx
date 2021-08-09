@@ -7,8 +7,7 @@ export default function Memoji(props: ChakraProps) {
       loop
       muted
       autoPlay
-      width="480"
-      height="480"
+      height={["200px", "480px"]}
       pointerEvents="none"
       {...props}
     >
