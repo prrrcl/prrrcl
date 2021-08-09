@@ -25,10 +25,10 @@ class AppService {
     return fetch(`${this.baseUrl}/messages`).then(this.manageResponse)
   }
 
-  postMessage(message: string) {
+  postMessage(question: string) {
     return fetch(
       `${this.baseUrl}/messages/add`,
-      this.prepareBody({ message })
+      this.prepareBody({ question })
     ).then(this.manageResponse)
   }
 }
