@@ -1,10 +1,11 @@
 import { Box, Heading, Text } from "@chakra-ui/react"
 import Memoji from "components/memoji"
-import CodeCarousel from "components/pages/home/codeCarousel"
-import Messages from "components/pages/home/messages"
+import CodeCarousel from "components/pages/about/codeCarousel"
+import Messages from "components/pages/about/messages"
 import Section from "components/section"
 import { motion } from "framer-motion"
 import { useCallback, useState } from "react"
+import SoftSkills from "./skills"
 
 export default function Intro() {
   const [mustShowN, setMustShowN] = useState(false)
@@ -15,7 +16,7 @@ export default function Intro() {
   }, [])
 
   return (
-    <Section bg="black" mt={["-20vw", "-50vw"]} spacing="5">
+    <Section bg="black" mt={["-20vw", "-50vw"]} spacing="5" id="#about">
       <Memoji mt={["-40vw", "-60"]} />
       <Box fontSize={["3xl", "5xl"]} color="white">
         <Heading
@@ -26,8 +27,14 @@ export default function Intro() {
         >
           Welcome,
         </Heading>
-        <Box d="flex" flexDir={["column", "row"]} textAlign="center" mb="20">
-          <Text>
+        <Box
+          d="flex"
+          flexDir={["column", "row"]}
+          textAlign="center"
+          mb="20"
+          alignItems="center"
+        >
+          <Text w="full">
             I&apos;m{" "}
             <Text as="span" fontWeight="bold">
               Adri
@@ -60,6 +67,7 @@ export default function Intro() {
         </Text>
       </Box>
       <Messages />
+      <SoftSkills />
     </Section>
   )
 }

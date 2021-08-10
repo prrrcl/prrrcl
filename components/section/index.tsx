@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react"
 import { IProps } from "./utils"
 
 export default function Section(props: IProps) {
-  const { bg, children, mt, spacing, lastOne } = props
+  const { bg, children, mt, spacing, lastOne, id } = props
 
   const ref = useRef<any>()
   const [height, setHeight] = useState(0)
@@ -30,6 +30,7 @@ export default function Section(props: IProps) {
 
   return (
     <Box
+      id={id}
       as="section"
       pos="relative"
       ref={ref}

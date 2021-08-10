@@ -85,7 +85,7 @@ export default function Cv() {
   }, [])
 
   return (
-    <Section bg="teal.100" spacing="28" lastOne>
+    <Section bg="teal.100" spacing="28" lastOne id="#cv">
       <Stack>
         <Heading
           key="first"
@@ -121,6 +121,7 @@ export default function Cv() {
           was in the design department of a local print shop, after studying
           graphic arts prepress.
         </Text>
+        <Text>After that...</Text>
         {experiences.map((experience) => (
           <Stack key={experience.year} spacing="12">
             <YearDivisor>{experience.year}</YearDivisor>

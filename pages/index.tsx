@@ -1,12 +1,11 @@
-import { Box, Heading } from "@chakra-ui/react"
-import Cv from "components/pages/cv"
-import Intro from "components/pages/home/intro"
-import MainHeader from "components/pages/home/mainHeader"
-import Section from "components/section"
-import Layout from "components/transition/layout"
 import { useEffect } from "react"
-
+import Footer from "components/footer"
+import Cv from "components/pages/cv"
+import Intro from "components/pages/about"
+import MainHeader from "components/pages/home/mainHeader"
+import Layout from "components/transition/layout"
 import useLoading from "shared/hooks/useLoading"
+import Head from "next/head"
 
 export default function Home() {
   const { delayedClose } = useLoading()
@@ -17,12 +16,14 @@ export default function Home() {
 
   return (
     <Layout>
+      <Head>
+        <title>prrrcl - Personal site</title>
+        <meta name="description" content="Adrián Porcel - Sitio personal" />
+      </Head>
       <MainHeader />
       <Intro />
       <Cv />
-      <Box>
-        <Heading>That&apos;s it!</Heading>
-      </Box>
+      <Footer />
     </Layout>
   )
 }
