@@ -1,11 +1,4 @@
-import {
-  Box,
-  Heading,
-  ListItem,
-  Stack,
-  Text,
-  UnorderedList,
-} from "@chakra-ui/react"
+import { Box, Heading, Stack, Text, UnorderedList } from "@chakra-ui/react"
 import Section from "components/section"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
@@ -13,7 +6,7 @@ import { differenceInYears, sub, format } from "date-fns"
 
 import Highlight from "./highlight"
 import YearDivisor from "./yearDivisor"
-import { Fragment, useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import appService from "shared/services/appService"
 import { IExperience } from "./types"
 import parseExperience from "./utils"

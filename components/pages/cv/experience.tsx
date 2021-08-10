@@ -1,4 +1,4 @@
-import { Box, ListItem, Stack, UnorderedList } from "@chakra-ui/react"
+import { Box, ListItem, UnorderedList } from "@chakra-ui/react"
 import useCursor from "shared/hooks/useCursor"
 import { IExperience } from "./types"
 

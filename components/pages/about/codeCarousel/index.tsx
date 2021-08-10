@@ -27,6 +27,7 @@ export default function CodeCarousel(props: IProps) {
   useEffect(() => {
     const interval = setInterval(animation, 5000)
     return () => clearInterval(interval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
