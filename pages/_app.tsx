@@ -5,8 +5,12 @@ import { Provider } from "jotai"
 import Cursor from "components/cursor"
 import Header from "components/header"
 import TransitionWrapper from "components/transition/wrapper"
+import { useEffect } from "react"
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [router.pathname])
   return (
     <ChakraProvider theme={theme}>
       <Provider>

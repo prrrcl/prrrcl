@@ -1,7 +1,7 @@
 class AppService {
-  baseUrl: string
+  private baseUrl: string
 
-  postConfig: any
+  private postConfig: any
 
   constructor() {
     this.baseUrl = "/api"
@@ -30,6 +30,10 @@ class AppService {
       `${this.baseUrl}/messages/add`,
       this.prepareBody({ question })
     ).then(this.manageResponse)
+  }
+
+  getCv() {
+    return fetch(`${this.baseUrl}/cv`).then(this.manageResponse)
   }
 }
 
