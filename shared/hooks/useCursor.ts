@@ -8,7 +8,7 @@ interface IHoverParams {
 }
 
 export default function useCursor() {
-  const [, setCursor] = useAtom(CURSOR)
+  const [cursor, setCursor] = useAtom(CURSOR)
   const [, setCursorText] = useAtom(CURSOR_TEXT)
   const [, setCursorTheme] = useAtom(CURSOR_THEME)
 
@@ -38,5 +38,5 @@ export default function useCursor() {
     if (theme) setCursorTheme(theme)
   }
 
-  return { handleIn, handleOut, invertedTheme }
+  return { handleIn, handleOut, invertedTheme, cursor }
 }

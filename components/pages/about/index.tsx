@@ -58,7 +58,7 @@ export default function Intro() {
 
           <Text>enthusiast.</Text>
         </Box>
-        <Text maxW="container.lg" mb="32">
+        <Text maxW={["container.lg", "container.sm", "container.lg"]} mb="32">
           Gamer, and passionate about beautiful and usables websites, at the age
           of 26, I have worked as a graphic designer and now as a front end.
           <br />

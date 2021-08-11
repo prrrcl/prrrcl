@@ -11,6 +11,7 @@ import appService from "shared/services/appService"
 import { IExperience } from "./types"
 import parseExperience from "./utils"
 import Experience from "./experience"
+import SkillBadge from "../about/skills/skill"
 
 const variants = {
   initial: {
@@ -26,6 +27,15 @@ export default function Cv() {
     studies: IExperience[]
     works: IExperience[]
   } | null>(null)
+
+  const skills = [
+    "Javascript",
+    "Typescript",
+    "React",
+    "React Native",
+    "GSAP",
+    "Framer Motion",
+  ]
 
   const experiences = useMemo(() => {
     if (data) {
@@ -105,7 +115,11 @@ export default function Cv() {
           </Box>
         </Heading>
       </Stack>
-      <Stack fontSize={["2xl", "5xl"]} maxW="container.lg" spacing="12">
+      <Stack
+        fontSize={["2xl", "5xl"]}
+        maxW={["container.sm", "container.lg"]}
+        spacing="12"
+      >
         <Text>
           My first job{" "}
           <Text as="span" aria-label="baby">
@@ -125,6 +139,21 @@ export default function Cv() {
             </UnorderedList>
           </Stack>
         ))}
+      </Stack>
+      <Stack>
+        <Heading textAlign="center" fontSize={["4xl", "7xl"]}>
+          Hard skills
+        </Heading>
+        <Box
+          d="flex"
+          w={["full", "container.lg"]}
+          flexWrap="wrap"
+          justifyContent="center"
+        >
+          {skills.map((skill) => (
+            <SkillBadge key={skill}>{skill}</SkillBadge>
+          ))}
+        </Box>
       </Stack>
     </Section>
   )

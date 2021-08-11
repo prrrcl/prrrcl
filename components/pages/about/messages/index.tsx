@@ -89,7 +89,7 @@ export default function Messages() {
       borderRadius="2xl"
       overflow="hidden"
     >
-      <Stack minH={["sm", "md"]}>
+      <Stack minH={["sm", "md"]} overflowY="scroll">
         <AnimatePresence>
           {selectedData && (
             <motion.div

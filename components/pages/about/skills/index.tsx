@@ -1,26 +1,24 @@
 import { Box, Heading, Stack } from "@chakra-ui/react"
+import SkillBadge from "./skill"
 
 export default function SoftSkills() {
   const skills = ["Communication", "Adaptability", "Organized", "Teamwork"]
 
   return (
-    <Stack color="white" maxW="container.md" spacing="8" w="full">
-      <Heading mt="8" fontSize="7xl" textAlign="center">
+    <Stack
+      color="white"
+      maxW={["container.sm", "container.md"]}
+      spacing="8"
+      w="full"
+    >
+      <Heading mt="8" fontSize={["4xl", "7xl"]} textAlign="center">
         Soft skills
       </Heading>
       <Box d="flex" w="full" flexWrap="wrap" justifyContent="center">
         {skills.map((skill) => (
-          <Box
-            fontSize={["2xl", "5xl"]}
-            p="4"
-            m="4"
-            borderRadius="3xl"
-            key={skill}
-            border="1px"
-            borderColor="white"
-          >
+          <SkillBadge color="white" key={skill}>
             {skill}
-          </Box>
+          </SkillBadge>
         ))}
       </Box>
     </Stack>
