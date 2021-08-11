@@ -34,7 +34,7 @@ export default function Intro() {
           mb="20"
           alignItems="center"
         >
-          <Text w="full">
+          <Text w={["full", "initial"]}>
             I&apos;m{" "}
             <Text as="span" fontWeight="bold">
               Adri
