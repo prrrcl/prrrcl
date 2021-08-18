@@ -29,8 +29,8 @@ export default function Cv() {
   } | null>(null)
 
   const skills = [
-    "Javascript",
-    "Typescript",
+    "JavaScript",
+    "TypeScript",
     "React",
     "React Native",
     "GSAP",
