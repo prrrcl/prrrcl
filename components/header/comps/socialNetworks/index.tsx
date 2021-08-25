@@ -1,5 +1,6 @@
 import LinkedIn from "components/svg/linkedin.svg"
 import Github from "components/svg/github.svg"
+import Yt from "components/svg/youtube.svg"
 import { Text, Tooltip } from "@chakra-ui/react"
 import Image from "next/image"
 import useCursor from "shared/hooks/useCursor"
@@ -16,6 +17,11 @@ const socialNetworks = [
     label: "Github",
     url: "https://github.com/prrrcl",
   },
+  {
+    icon: Yt,
+    label: "YouTube",
+    url: "https://www.youtube.com/channel/UCKGxp2pj8EWitM6-UWv9Fvg?sub_confirmation=1",
+  },
 ]
 export default function SocialNetworks() {
   const { handleIn, handleOut } = useCursor()
@@ -28,7 +34,7 @@ export default function SocialNetworks() {
             as="a"
             bg="white"
             overflow="hidden"
-            borderRadius="md"
+            borderRadius="lg"
             href={url}
             target="_blank"
             rel="noreferrer"
