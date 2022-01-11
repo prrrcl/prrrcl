@@ -3,7 +3,7 @@
 <h3 align="center">🙌 Welcome to my Github Profile!</h3>
 
 <p align = "center">
-  I'm Front End developer, currently working at <a href="https://www.laliga.es">LaLiga</a>. I'm in 💘 with JS (as you can see 😋)
+  I'm Front End developer, currently working at <a href="https://www.reboot.studio">@reboot.studio</a>. I'm in 💘 with JS (as you can see 😋)
 </p>
 
 ---
